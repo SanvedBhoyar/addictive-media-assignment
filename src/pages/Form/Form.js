@@ -30,7 +30,7 @@ function Form() {
     useEffect(() => {
         if (!countriesList.length) {
             axios
-                .get('https://addictive-media-backend-app.herokuapp.com/countries-list')
+                .get('https://cors-anywhere-proxy-app-heroku.herokuapp.com/https://addictive-media-backend-app.herokuapp.com/countries-list')
                 .then(({ data }) => setCountriesList(data));
         }
     }, []);
@@ -39,7 +39,7 @@ function Form() {
         event.preventDefault();
 
         try {
-            await axios.get('https://addictive-media-backend-app.herokuapp.com/add-credentials', {
+            await axios.get('https://cors-anywhere-proxy-app-heroku.herokuapp.com/https://addictive-media-backend-app.herokuapp.com/add-credentials', {
                 params: state
             });
             dispatch({ type: 'reset' });

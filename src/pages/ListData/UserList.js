@@ -6,7 +6,7 @@ function UserList() {
     const [sortBy, setSortBy] = useState(true);
 
     const updateList = () => {
-        axios.get('https://addictive-media-backend-app.herokuapp.com/get-users')
+        axios.get('https://cors-anywhere-proxy-app-heroku.herokuapp.com/https://addictive-media-backend-app.herokuapp.com/get-users')
             .then(({ data }) => setUserList(data));
     };
 
@@ -18,7 +18,7 @@ function UserList() {
     const handleDelete = async (id) => {
         // delete the user
         try {
-            await axios.get('https://addictive-media-backend-app.herokuapp.com/delete-user', {
+            await axios.get('https://cors-anywhere-proxy-app-heroku.herokuapp.com/https://addictive-media-backend-app.herokuapp.com/delete-user', {
                 params: { id }
             });
 
