@@ -30,7 +30,7 @@ function Form() {
     useEffect(() => {
         if (!countriesList.length) {
             axios
-                .get('http://localhost:4000/countries-list')
+                .get('https://addictive-media-backend-app.herokuapp.com/countries-list')
                 .then(({ data }) => setCountriesList(data));
         }
     }, []);
@@ -39,7 +39,7 @@ function Form() {
         event.preventDefault();
 
         try {
-            await axios.get('http://localhost:4000/add-credentials', {
+            await axios.get('https://addictive-media-backend-app.herokuapp.com/add-credentials', {
                 params: state
             });
             dispatch({ type: 'reset' });

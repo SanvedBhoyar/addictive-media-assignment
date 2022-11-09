@@ -6,7 +6,7 @@ function UserList() {
     const [sortBy, setSortBy] = useState(true);
 
     const updateList = () => {
-        axios.get('http://localhost:4000/get-users')
+        axios.get('https://addictive-media-backend-app.herokuapp.com/get-users')
             .then(({ data }) => setUserList(data));
     };
 
@@ -18,7 +18,7 @@ function UserList() {
     const handleDelete = async (id) => {
         // delete the user
         try {
-            await axios.get('http://localhost:4000/delete-user', {
+            await axios.get('https://addictive-media-backend-app.herokuapp.com/delete-user', {
                 params: { id }
             });
 
