@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, useRef } from 'react';
+import React, { useReducer, useEffect, useState } from 'react';
 import axios from 'axios';
 import './Form.css';
 
@@ -25,13 +25,13 @@ const reducer = (state, { type, payload }) => {
 
 function Form() {
     const [state, dispatch] = useReducer(reducer, initialState);
-    const countriesList = useRef(null);
+    const [countriesList, setCountriesList] = useState([]);
 
     useEffect(() => {
         if (!countriesList.length) {
             axios
                 .get('http://localhost:4000/countries-list')
-                .then(data => countriesList.current = data);
+                .then(({ data }) => setCountriesList(data));
         }
     }, []);
 
@@ -65,17 +65,11 @@ function Form() {
                             id: 'dob'
                         },
                         {
-                            label: 'Country',
-                            type: 'text',
-                            id: 'country',
-                            options: countriesList.current
-                        },
-                        {
                             label: 'Resume',
                             type: 'file',
                             id: 'resume'
                         }
-                    ].map(({ id, type, label, options }) => (
+                    ].map(({ id, type, label }) => (
                         <div className='form__field' key={id}>
                             <label
                                 className='form__field-label'
@@ -95,13 +89,22 @@ function Form() {
                                         value: e.target.value
                                     }
                                 })}
-                            >
-                                {options?.map(opt => (
-                                    <option value={opt}>{opt}</option>
-                                ))}
-                            </input>
+                            />
                         </div>
                     ))}
+
+                    <select name='country' value={state['country']} onChange={(e) => dispatch({
+                        type: 'handleUpdate',
+                        payload: {
+                            field: 'country',
+                            value: e.target.value
+                        }
+                    })}>
+                        {countriesList?.map(opt => (
+                            <option key={opt} value={opt}>{opt}</option>
+                        ))}
+                    </select>
+
                     <div className="form__btn-group">
                         <button
                             className='form__btn form__submit'
